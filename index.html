@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>20.10 — Dành Tặng Yến Nhii</title>
+    <meta name="description" content="Thiệp chúc mừng ngày Phụ nữ Việt Nam 20/10">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@300;400&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FAF7F2;
+            --bg2: #F5EFEB;
+            --rose: #D4A5A5;
+            --rose-deep: #C98A7D;
+            --ink: #2E2E2E;
+            --ink-soft: #6b625f;
+            --paper: #FFFDF9;
+            --ease: cubic-bezier(.65, 0, .35, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            min-height: 100%
+        }
+
+        body {
+            background: radial-gradient(ellipse at 50% 40%, var(--bg) 0%, var(--bg2) 100%);
+            background-attachment: fixed;
+            color: var(--ink);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            overflow-x: hidden;
+            overflow-y: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        #particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 3s ease
+        }
+
+        body.open #particles {
+            opacity: 1
+        }
+
+        .stage {
+            position: relative;
+            width: min(88vw, 460px);
+            perspective: 1600px
+        }
+
+        .letter {
+            position: relative;
+            background: var(--paper);
+            border-radius: 4px;
+            box-shadow: 0 30px 60px -30px rgba(120, 80, 70, .25), 0 0 0 1px rgba(201, 138, 125, .15);
+            padding: clamp(24px, 6vw, 44px) clamp(20px, 5.5vw, 40px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            overflow: visible;
+        }
+
+        .letter::before {
+            content: "";
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(201, 138, 125, .3);
+            pointer-events: none
+        }
+
+        .letter>* {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 1.6s ease, transform 1.6s ease
+        }
+
+        body.open .letter>* {
+            opacity: 1;
+            transform: none
+        }
+
+        body.open .letter>*:nth-child(1) {
+            transition-delay: 1.6s
+        }
+
+        body.open .letter>*:nth-child(2) {
+            transition-delay: 2.2s
+        }
+
+        body.open .letter>*:nth-child(3) {
+            transition-delay: 2.8s
+        }
+
+        body.open .letter>*:nth-child(4) {
+            transition-delay: 3.8s
+        }
+
+        body.open .letter>*:nth-child(5) {
+            transition-delay: 4.8s
+        }
+
+        body.open .letter>*:nth-child(6) {
+            transition-delay: 5.6s
+        }
+
+        .date {
+            font-family: 'Cormorant Garamond', serif;
+            letter-spacing: .4em;
+            font-size: .8rem;
+            color: var(--rose-deep)
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 500;
+            font-size: clamp(1.7rem, 6vw, 2.3rem);
+            line-height: 1.2;
+            margin: .6em 0 .2em
+        }
+
+        h1 em {
+            font-style: italic;
+            color: var(--rose-deep)
+        }
+
+        .divider {
+            width: 46px;
+            height: 1px;
+            background: var(--rose);
+            margin: 1.1em auto
+        }
+
+        .msg {
+            font-size: clamp(.86rem, 2.6vw, .95rem);
+            line-height: 1.95;
+            color: var(--ink-soft)
+        }
+
+        .msg+.msg {
+            margin-top: .9em
+        }
+
+        .sign {
+            margin-top: 1.8em;
+            font-family: 'Cormorant Garamond', serif
+        }
+
+        .sign small {
+            display: block;
+            font-family: 'Montserrat';
+            font-size: .68rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            margin-bottom: .5em
+        }
+
+        .sign span {
+            font-style: italic;
+            font-size: 1.5rem;
+            color: var(--ink)
+        }
+
+        /* Bìa thiệp */
+        .cover {
+            position: absolute;
+            inset: 0;
+            height: 100%;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 2s var(--ease), opacity .8s ease 1.4s;
+            cursor: pointer;
+            z-index: 2;
+        }
+
+        .cover .face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            border-radius: 4px;
+            background: linear-gradient(160deg, #F3E7E2, #EBD9D3);
+            box-shadow: 0 30px 60px -25px rgba(120, 80, 70, .35);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+        }
+
+        .cover .face::before {
+            content: "";
+            position: absolute;
+            inset: 14px;
+            border: 1px solid rgba(201, 138, 125, .4)
+        }
+
+        .cover .back {
+            transform: rotateY(180deg);
+            background: var(--bg2)
+        }
+
+        body.open .cover {
+            transform: rotateY(-170deg);
+            opacity: 0;
+            pointer-events: none
+        }
+
+        .seal {
+            width: 110px;
+            height: 110px;
+            transition: transform 1.2s var(--ease)
+        }
+
+        .cover:hover .seal {
+            transform: scale(1.04)
+        }
+
+        .cover .title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.05rem;
+            letter-spacing: .5em;
+            color: var(--rose-deep)
+        }
+
+        .hint {
+            font-size: .78rem;
+            letter-spacing: .12em;
+            color: var(--ink-soft);
+            animation: breathe 4s ease-in-out infinite
+        }
+
+        @keyframes breathe {
+
+            0%,
+            100% {
+                opacity: .35
+            }
+
+            50% {
+                opacity: .85
+            }
+        }
+
+        .cover:focus-visible {
+            outline: 1px solid var(--rose-deep);
+            outline-offset: 6px
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            * {
+                transition-duration: .01s !important;
+                animation: none !important
+            }
+        }
+
+        /* ─── Nút nhạc ─── */
+        #music-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 100;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 1px solid rgba(201, 138, 125, .45);
+            background: rgba(253, 249, 244, .88);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(120, 80, 70, .12);
+            transition: background .25s ease, transform .2s ease, opacity .4s ease;
+        }
+
+        #music-btn:hover {
+            background: #fff;
+            transform: scale(1.08)
+        }
+
+        #music-btn.loading {
+            opacity: .45;
+            pointer-events: none
+        }
+
+        #music-btn.error {
+            opacity: .35
+        }
+
+        #music-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--rose-deep)
+        }
+
+        #music-btn::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: calc(100% + 8px);
+            right: 0;
+            white-space: nowrap;
+            background: rgba(46, 46, 46, .82);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: .63rem;
+            letter-spacing: .08em;
+            padding: 4px 10px;
+            border-radius: 3px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .2s ease;
+        }
+
+        #music-btn:hover::after {
+            opacity: 1
+        }
+
+        /* Player YouTube ẩn: phải đủ lớn (>=200px) và nằm trong màn hình thì trình duyệt mới cho phát */
+        #yt-frame {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 200px;
+            height: 200px;
+            opacity: .01;
+            pointer-events: none;
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="particles"></canvas>
+
+    <main class="stage">
+        <article class="letter" aria-live="polite">
+            <p class="date">20 · 10</p>
+            <h1>20.10 — Dành Tặng<br><em>Yến Nhi</em></h1>
+            <div class="divider"></div>
+            <p class="msg">
+                Tui hong biết chúc gì ngoài mong cổ luôn biết rằng mình xứng đáng được yêu thương và trân trọng.
+                Dù cuộc sống có những ngày hong như ý, vẫn mong nụ cười ấy luôn ở lại,
+                đủ mạnh mẽ để bước tiếp và đủ bình yên để tận hưởng những điều nhỏ bé xung quanh mình nheee.
+            </p>
+
+            <p class="msg">
+                Cảm ơn vì đã luôn là chính mình. Chúc Yến Nhii một ngày 20/10 thật vui, không chỉ hôm nay mà
+                cả những ngày sau này nữa, mong cô gái ấy luôn được yêu thương theo cách mà mình xứng đáng. ❤️
+            </p>
+
+            <div class="sign">
+                <small>Thân gửi từ</small>
+                <span>Phát Nguyễn</span>
+            </div>
+        </article>
+
+        <div class="cover" id="cover" role="button" tabindex="0" aria-label="Mở thiệp">
+            <div class="face">
+                <svg class="seal" viewBox="0 0 120 120" aria-hidden="true">
+                    <circle cx="60" cy="60" r="52" fill="none" stroke="#C98A7D" stroke-width=".8" opacity=".6" />
+                    <circle cx="60" cy="60" r="46" fill="none" stroke="#C98A7D" stroke-width=".5" opacity=".4" />
+                    <path d="M60 92 C60 75 58 62 62 44" fill="none" stroke="#9c7a70" stroke-width="1.1"
+                        stroke-linecap="round" />
+                    <path d="M60 78 C52 74 47 70 45 63 C52 64 57 69 60 78Z" fill="#D4A5A5" opacity=".55" />
+                    <path d="M61 68 C68 64 72 60 74 54 C67 55 63 60 61 68Z" fill="#D4A5A5" opacity=".55" />
+                    <g transform="translate(62 40)" fill="#C98A7D">
+                        <ellipse rx="5" ry="9" opacity=".7" />
+                        <ellipse rx="5" ry="9" transform="rotate(72)" opacity=".6" />
+                        <ellipse rx="5" ry="9" transform="rotate(144)" opacity=".6" />
+                        <ellipse rx="5" ry="9" transform="rotate(216)" opacity=".6" />
+                        <ellipse rx="5" ry="9" transform="rotate(288)" opacity=".6" />
+                        <circle r="2.6" fill="#FAF7F2" />
+                    </g>
+                </svg>
+                <p class="title">20 · 10</p>
+                <p class="hint">Yến Nhii click vô đây nhee...</p>
+            </div>
+            <div class="face back"></div>
+        </div>
+    </main>
+
+    <!-- Player YouTube ẩn (chỉ dùng khi AUDIO_SRC để trống) -->
+    <div id="yt-frame">
+        <div id="yt-player"></div>
+    </div>
+
+    <!-- Nút bật / tắt nhạc -->
+    <button id="music-btn" class="loading" aria-label="Bật / tắt nhạc" data-tip="Đang tải...">
+        <!-- đang phát: hiện nốt nhạc -->
+        <svg id="icon-playing" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:none">
+            <path d="M9 3v10.55A4 4 0 1 0 11 17V7h4V3H9Z" />
+        </svg>
+        <!-- đang tắt: nốt nhạc gạch chéo -->
+        <svg id="icon-paused" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 3v10.55A4 4 0 1 0 11 17V7h4V3H9Z M3.41 2 2 3.41l18 18L21.41 20 3.41 2Z" />
+        </svg>
+    </button>
+
+    <script>
+        /* ════════════════════════════════════════════════════════════
+           ★ CẤU HÌNH NHẠC ★
+           Cách 1 (KHUYÊN DÙNG, chạy ổn trên mọi thiết bị):
+               để file nhạc cạnh file HTML, ví dụ 'nhac.mp3'
+           Cách 2: để AUDIO_SRC = '' để dùng YouTube (cần chạy qua http/https,
+               video phải cho phép nhúng, iPhone có thể vẫn bị chặn)
+        ════════════════════════════════════════════════════════════ */
+        const AUDIO_SRC = 'nhac.mp3';
+        const VIDEO_ID = '3Ozo7tejr00';
+
+        /* ───────── Điều khiển nhạc ───────── */
+        const Music = (() => {
+            const btn = document.getElementById('music-btn');
+            const iconPlaying = document.getElementById('icon-playing');
+            const iconPaused = document.getElementById('icon-paused');
+            let playing = false, ready = false, wantPlay = true;
+            let audio = null, yt = null;
+
+            const render = () => {
+                iconPlaying.style.display = playing ? '' : 'none';
+                iconPaused.style.display = playing ? 'none' : '';
+                btn.setAttribute('data-tip', playing ? 'Tắt nhạc' : 'Bật nhạc');
+            };
+            const setReady = () => {
+                ready = true;
+                btn.classList.remove('loading', 'error');
+                render();
+                if (wantPlay) play();
+            };
+            const setError = (msg) => {
+                btn.classList.remove('loading');
+                btn.classList.add('error');
+                btn.setAttribute('data-tip', msg || 'Không phát được nhạc');
+            };
+
+            /* Nếu trình duyệt chặn tự phát, chờ cú chạm đầu tiên rồi phát */
+            let armed = false;
+            function armGesture() {
+                if (armed) return;
+                armed = true;
+                const evs = ['pointerdown', 'keydown', 'touchend'];
+                const go = (e) => {
+                    // bỏ qua khi bấm vào chính nút nhạc, tránh bật rồi tắt ngay
+                    if (e.target.closest && e.target.closest('#music-btn')) return;
+                    evs.forEach(ev => removeEventListener(ev, go, true));
+                    armed = false;
+                    if (wantPlay) play();
+                };
+                evs.forEach(ev => addEventListener(ev, go, true));
+            }
+
+            function play() {
+                wantPlay = true;
+                if (!ready) return;
+                if (audio) {
+                    audio.play()
+                        .then(() => { playing = true; render(); })
+                        .catch(() => { playing = false; render(); armGesture(); });
+                } else if (yt) {
+                    yt.playVideo();
+                    playing = true; render();
+                }
+            }
+            function pause() {
+                wantPlay = false;
+                if (audio) audio.pause();
+                else if (yt) yt.pauseVideo();
+                playing = false; render();
+            }
+            function toggle() { playing ? pause() : play(); }
+
+            if (AUDIO_SRC) {
+                audio = new Audio(AUDIO_SRC);
+                audio.loop = true;
+                audio.volume = 0.5;
+                audio.preload = 'auto';
+                audio.addEventListener('canplay', setReady, { once: true });
+                audio.addEventListener('error', () => setError('Không tìm thấy file nhạc'));
+                audio.load();
+            } else {
+                window.onYouTubeIframeAPIReady = () => {
+                    yt = new YT.Player('yt-player', {
+                        videoId: VIDEO_ID,
+                        playerVars: {
+                            autoplay: 0, controls: 0, loop: 1, playlist: VIDEO_ID,
+                            playsinline: 1, modestbranding: 1, rel: 0, iv_load_policy: 3,
+                            origin: location.protocol.startsWith('http') ? location.origin : undefined
+                        },
+                        events: {
+                            onReady: (e) => { e.target.setVolume(50); setReady(); },
+                            onError: (e) => {
+                                console.warn('YouTube error code:', e.data);
+                                setError('Lỗi nhạc (' + e.data + ')');
+                            },
+                            onStateChange: (e) => {
+                                if (e.data === YT.PlayerState.ENDED) { yt.seekTo(0); yt.playVideo(); }
+                            }
+                        }
+                    });
+                };
+                const tag = document.createElement('script');
+                tag.src = 'https://www.youtube.com/iframe_api';
+                tag.onerror = () => setError('Không tải được YouTube');
+                document.head.appendChild(tag);
+            }
+
+            btn.addEventListener('click', toggle);
+            render();
+            return { play };
+        })();
+
+        /* ───────── Mở thiệp + hiệu ứng cánh hoa ───────── */
+        (() => {
+            const cover = document.getElementById('cover');
+            const open = () => {
+                if (document.body.classList.contains('open')) return;
+                document.body.classList.add('open');
+                Music.play();      // chạm mở thiệp → nhạc tự vang lên
+                start();
+            };
+            cover.addEventListener('click', open);
+            cover.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+            });
+
+            const c = document.getElementById('particles'), ctx = c.getContext('2d');
+            let W, H, dpr, items = [];
+            const resize = () => {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                W = c.width = innerWidth * dpr; H = c.height = innerHeight * dpr;
+                c.style.width = innerWidth + 'px'; c.style.height = innerHeight + 'px';
+            };
+            addEventListener('resize', resize); resize();
+
+            const make = (initial) => {
+                const petal = Math.random() < .45;
+                return {
+                    petal, x: Math.random() * W, y: initial ? Math.random() * H : -20 * dpr,
+                    r: (petal ? 5 + Math.random() * 4 : 1 + Math.random() * 2) * dpr,
+                    vy: (.12 + Math.random() * .22) * dpr, sway: Math.random() * Math.PI * 2,
+                    rot: Math.random() * Math.PI, vr: (Math.random() - .5) * .006,
+                    a: petal ? .35 + Math.random() * .3 : .25 + Math.random() * .4
+                };
+            };
+            const count = innerWidth < 600 ? 14 : 24;
+
+            function start() {
+                for (let i = 0; i < count; i++) items.push(make(true));
+                requestAnimationFrame(loop);
+            }
+            function loop() {
+                ctx.clearRect(0, 0, W, H);
+                for (const p of items) {
+                    p.sway += .006; p.y += p.vy; p.x += Math.sin(p.sway) * .25 * dpr; p.rot += p.vr;
+                    if (p.y > H + 20 * dpr) Object.assign(p, make(false));
+                    ctx.save(); ctx.translate(p.x, p.y); ctx.globalAlpha = p.a;
+                    if (p.petal) {
+                        ctx.rotate(p.rot); ctx.fillStyle = '#D4A5A5';
+                        ctx.beginPath(); ctx.moveTo(0, -p.r);
+                        ctx.quadraticCurveTo(p.r, 0, 0, p.r); ctx.quadraticCurveTo(-p.r, 0, 0, -p.r); ctx.fill();
+                    } else {
+                        const g = ctx.createRadialGradient(0, 0, 0, 0, 0, p.r * 4);
+                        g.addColorStop(0, 'rgba(255,240,225,1)'); g.addColorStop(1, 'rgba(255,240,225,0)');
+                        ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, p.r * 4, 0, Math.PI * 2); ctx.fill();
+                    }
+                    ctx.restore();
+                }
+                requestAnimationFrame(loop);
+            }
+        })();
+    </script>
+</body>
+
+</html>
